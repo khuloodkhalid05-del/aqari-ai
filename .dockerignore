@@ -1,0 +1,7 @@
+data/
+notebooks/
+__pycache__/
+*.pyc
+.git
+.gitignore
+test_app.py

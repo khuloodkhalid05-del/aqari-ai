@@ -3,23 +3,23 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>GoldenEstate AI | المقيم الذكي للعقارات في مصر 🇪🇬</title>
+  <title>عقاري AI | المقيم العقاري الذكي في مصر 🇪🇬</title>
   
   <!-- Google Fonts: Cairo & Outfit -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;500;600;700;800;900&family=Outfit:wght@400;600;700;800&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;500;600;700;800;900&family=Outfit:wght@400;600;700;800;900&display=swap" rel="stylesheet">
   
   <!-- FontAwesome Icons -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
   
-  <!-- Chart.js for Interactive Charts -->
+  <!-- Chart.js for Interactive Visualizations -->
   <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 
   <link rel="stylesheet" href="/static/styles.css">
 </head>
-<body>
-  <!-- Background Glow & Particle Canvas -->
+<body data-lang="ar">
+  <!-- Background Glows -->
   <div class="bg-glow bg-glow-1"></div>
   <div class="bg-glow bg-glow-2"></div>
   <div class="gold-grid-overlay"></div>
@@ -27,152 +27,169 @@
   <!-- Header Navigation -->
   <header class="luxury-header">
     <div class="container header-container">
-      <div class="brand-logo">
+      <!-- Brand: عقاري / AQARI AI -->
+      <div class="brand-logo" onclick="switchTab('tab-predict')">
         <div class="logo-emblem">
-          <i class="fa-solid fa-gem"></i>
+          <i class="fa-solid fa-hotel"></i>
         </div>
         <div class="brand-text">
-          <span class="brand-title">GOLDEN<span class="gold-accent">ESTATE</span></span>
-          <span class="brand-subtitle">AI Real Estate Valuation 🇪🇬</span>
+          <span class="brand-title">عقاري <span class="gold-accent">AQARI</span></span>
+          <span class="brand-subtitle" data-i18n="tagline">التقييم العقاري الذكي الفاخر 🇪🇬</span>
         </div>
       </div>
 
+      <!-- Navigation Tabs -->
       <nav class="nav-tabs">
         <button class="nav-tab active" data-tab="tab-predict">
           <i class="fa-solid fa-wand-magic-sparkles"></i>
-          <span>حاسبة السعر الذكية</span>
-        </button>
-        <button class="nav-tab" data-tab="tab-models">
-          <i class="fa-solid fa-chart-line"></i>
-          <span>مقارنة النماذج (4 Models)</span>
+          <span data-i18n="nav_calculator">حاسبة التقييم العقاري</span>
         </button>
         <button class="nav-tab" data-tab="tab-market">
           <i class="fa-solid fa-city"></i>
-          <span>تحليلات السوق المصري</span>
+          <span data-i18n="nav_market">تحليلات السوق والمدن</span>
         </button>
-        <button class="nav-tab" data-tab="tab-methodology">
-          <i class="fa-solid fa-graduation-cap"></i>
-          <span>منهجية المشروع</span>
+        <button class="nav-tab" data-tab="tab-models">
+          <i class="fa-solid fa-chart-line"></i>
+          <span data-i18n="nav_models">نماذج الـ AI (الأكاديمية)</span>
         </button>
       </nav>
 
+      <!-- Language Switcher & Fast Docs -->
       <div class="header-actions">
-        <a href="/docs" target="_blank" class="btn-api-docs" title="Interactive Swagger API Docs">
-          <i class="fa-solid fa-code"></i>
-          <span>FastAPI Docs</span>
+        <button class="btn-lang-toggle" id="btn-lang-toggle" onclick="toggleLanguage()">
+          <i class="fa-solid fa-globe"></i>
+          <span id="lang-label">English</span>
+        </button>
+        <a href="/docs" target="_blank" class="btn-api-docs" title="Interactive API Docs">
+          <i class="fa-solid fa-bolt"></i>
+          <span>API Docs</span>
         </a>
       </div>
     </div>
   </header>
 
-  <!-- Main Application Wrapper -->
+  <!-- Hero Visual Showcase Banner -->
+  <section class="hero-showcase-section">
+    <div class="container hero-container">
+      <div class="hero-image-wrapper">
+        <img src="/static/hero.jpg" alt="عقاري الفاخر - فيلا فاخرة بمصر" class="hero-cover-img" id="hero-img">
+        <div class="hero-image-gradient-overlay"></div>
+        <div class="hero-content-over">
+          <div class="hero-pill-badge">
+            <i class="fa-solid fa-crown gold-accent"></i>
+            <span data-i18n="hero_badge">المنصة الأولى للتقييم العقاري بالذكاء الاصطناعي في مصر</span>
+          </div>
+          <h1 class="hero-main-title">
+            <span data-i18n="hero_title_1">اكتشف القيمة الحقيقية لعقارك مع</span> <br>
+            <span class="gold-gradient-text" data-i18n="hero_title_brand">عقاري — AQARI AI</span>
+          </h1>
+          <p class="hero-subtext" data-i18n="hero_desc">
+            احصل على تقدير دقيق لسعر الشراء والبيع، مع حاسبة ذكية لخطة الأقساط والمقدمات، وأثر الإطلالة البحرية وحمام السباحة والروف.
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Main Application Content -->
   <main class="container main-content">
 
     <!-- ============================================== -->
-    <!-- TAB 1: PREDICTOR / CALCULATOR                  -->
+    <!-- TAB 1: VALUATION & INSTALLMENT CALCULATOR      -->
     <!-- ============================================== -->
     <section id="tab-predict" class="app-tab active">
-      <!-- Hero Banner -->
-      <div class="hero-section">
-        <div class="hero-badge">
-          <i class="fa-solid fa-microchip"></i>
-          <span>مدعوم بنموذج LightGBM المُدرب على 14,000+ عقار حقيقي في مصر</span>
-        </div>
-        <h1 class="hero-heading">
-          احسب القيمة العادلة لعقارك بـ <span class="gold-gradient-text">الذكاء الاصطناعي الفاخر</span>
-        </h1>
-        <p class="hero-desc">
-          أداة تقييم عقارية دقيقة تأخذ في الحسبان المساحة، الكومباوند، والفيو، وتشطيبات الرفاهية لتقديم تقرير سعري احترافي فوري.
-        </p>
-      </div>
-
-      <!-- Main Predictor Grid -->
       <div class="predictor-grid">
-        <!-- LEFT: FORM INPUTS -->
+
+        <!-- LEFT: SPECIFICATIONS FORM -->
         <div class="card-luxury input-card">
           <div class="card-header">
             <div class="card-icon"><i class="fa-solid fa-sliders"></i></div>
             <div>
-              <h2 class="card-title">مواصفات العقار</h2>
-              <p class="card-subtitle">حدد المساحة والموقع والمميزات بدقة</p>
+              <h2 class="card-title" data-i18n="form_title">مواصفات العقار</h2>
+              <p class="card-subtitle" data-i18n="form_subtitle">حدد الفئة أولاً، ثم اختر المساحة والمميزات</p>
             </div>
           </div>
 
           <form id="prediction-form" class="luxury-form" onsubmit="event.preventDefault(); calculatePrice();">
             
-            <!-- 1. THREE SIZE TIERS (Crucial User Requirement) -->
+            <!-- STEP 1: SIZE CATEGORY SELECTION FIRST (Crucial User Requirement) -->
             <div class="form-group">
               <label class="form-label">
-                <span class="gold-text"><i class="fa-solid fa-expand"></i> فئة مساحة العقار:</span>
-                <span class="label-hint">اختر الفئة الأساسية بلمسة واحدة</span>
+                <span class="gold-text"><i class="fa-solid fa-layer-group"></i> <span data-i18n="category_label">1. حدد فئة المساحة أولاً:</span></span>
+                <span class="label-hint" data-i18n="category_hint">انقر لاختيار النطاق المناسب</span>
               </label>
               
               <div class="size-categories-grid">
                 <!-- Tier 1: Small -->
                 <div class="size-category-card" data-category="small" onclick="selectSizeCategory('small')">
-                  <div class="category-badge">اقتصادي / ستوديو</div>
+                  <div class="category-badge" data-i18n="cat_small_badge">شقق وستوديو</div>
                   <div class="category-icon"><i class="fa-solid fa-door-open"></i></div>
-                  <h3 class="category-title">مساحة صغيرة</h3>
-                  <div class="category-range">60 - 120 م²</div>
-                  <p class="category-desc">شقق استوديو وغرفة أو غرفتين</p>
+                  <h3 class="category-title" data-i18n="cat_small_title">مساحة صغيرة</h3>
+                  <div class="category-range">40 - 120 م²</div>
+                  <p class="category-desc" data-i18n="cat_small_desc">استوديو وغرفة أو غرفتين</p>
                 </div>
 
                 <!-- Tier 2: Medium (Default) -->
                 <div class="size-category-card active" data-category="medium" onclick="selectSizeCategory('medium')">
-                  <div class="category-badge popular">الأكثر طلباً 🌟</div>
+                  <div class="category-badge popular" data-i18n="cat_med_badge">الأكثر شيوعاً 🌟</div>
                   <div class="category-icon"><i class="fa-solid fa-building"></i></div>
-                  <h3 class="category-title">مساحة متوسطة</h3>
-                  <div class="category-range">120 - 220 م²</div>
-                  <p class="category-desc">شقق عائلية ودوبلكس 3 غرف</p>
+                  <h3 class="category-title" data-i18n="cat_med_title">مساحة متوسطة</h3>
+                  <div class="category-range">120 - 250 م²</div>
+                  <p class="category-desc" data-i18n="cat_med_desc">شقق عائلية ودوبلكس 3 غرف</p>
                 </div>
 
                 <!-- Tier 3: Large -->
                 <div class="size-category-card" data-category="large" onclick="selectSizeCategory('large')">
-                  <div class="category-badge luxury">Ultra Luxury 👑</div>
+                  <div class="category-badge luxury" data-i18n="cat_large_badge">فيلات فاخرة 👑</div>
                   <div class="category-icon"><i class="fa-solid fa-house-chimney-window"></i></div>
-                  <h3 class="category-title">مساحة كبيرة</h3>
-                  <div class="category-range">220 - 600+ م²</div>
-                  <p class="category-desc">فيلات مستقلة، تاون وبنتهاوس</p>
+                  <h3 class="category-title" data-i18n="cat_large_title">مساحة كبيرة</h3>
+                  <div class="category-range">250 - 800 م²</div>
+                  <p class="category-desc" data-i18n="cat_large_desc">فيلات مستقلة وتاون وبنتهاوس</p>
                 </div>
               </div>
 
-              <!-- Fine-tuning Slider -->
+              <!-- Dynamic Sub-Range Slider based on chosen category -->
               <div class="slider-wrapper">
                 <div class="slider-header">
-                  <span>المساحة بالمتر المربع (صافي):</span>
+                  <span data-i18n="area_slider_label">تحديد المساحة الدقيقة داخل هذه الفئة:</span>
                   <span class="slider-value-badge" id="area-display">160 م²</span>
                 </div>
-                <input type="range" id="area-slider" min="30" max="650" value="160" step="5" class="gold-slider" oninput="updateAreaSlider(this.value)">
-                <div class="slider-ticks">
-                  <span>30 م²</span>
+                <input type="range" id="area-slider" min="120" max="250" value="160" step="5" class="gold-slider" oninput="updateAreaSlider(this.value)">
+                <div class="slider-ticks" id="slider-ticks">
+                  <span>120 م²</span>
                   <span>150 م²</span>
-                  <span>300 م²</span>
-                  <span>450 م²</span>
-                  <span>650+ م²</span>
+                  <span>180 م²</span>
+                  <span>210 م²</span>
+                  <span>250 م²</span>
+                </div>
+
+                <!-- Quick Presets for current category -->
+                <div class="quick-presets-row" id="quick-presets">
+                  <!-- Populated by JS -->
                 </div>
               </div>
             </div>
 
-            <!-- 2. Location & Property Details -->
+            <!-- STEP 2: PROPERTY TYPE & CITY -->
             <div class="form-row-2">
               <div class="form-group">
                 <label class="form-label" for="select-type">
-                  <i class="fa-solid fa-hotel"></i> نوع العقار
+                  <i class="fa-solid fa-hotel"></i> <span data-i18n="label_prop_type">نوع العقار</span>
                 </label>
-                <select id="select-type" class="gold-select" onchange="autoRefineOptions()">
-                  <option value="Apartment" selected>شقة سكنية (Apartment)</option>
-                  <option value="Villa">فيلا مستقلة (Standalone Villa)</option>
-                  <option value="Townhouse">تاون هاوس (Townhouse)</option>
-                  <option value="Twin House">توين هاوس (Twin House)</option>
-                  <option value="Duplex">دوبلكس (Duplex)</option>
-                  <option value="Penthouse">بنتهاوس فاخر (Penthouse)</option>
-                  <option value="Chalet">شاليه مصيفي (Chalet)</option>
+                <select id="select-type" class="gold-select" onchange="calculatePrice()">
+                  <option value="Apartment" selected data-i18n="opt_apartment">شقة سكنية (Apartment)</option>
+                  <option value="Villa" data-i18n="opt_villa">فيلا مستقلة (Standalone Villa)</option>
+                  <option value="Townhouse" data-i18n="opt_townhouse">تاون هاوس (Townhouse)</option>
+                  <option value="Twin House" data-i18n="opt_twin">توين هاوس (Twin House)</option>
+                  <option value="Duplex" data-i18n="opt_duplex">دوبلكس (Duplex)</option>
+                  <option value="Penthouse" data-i18n="opt_penthouse">بنتهاوس فاخر (Penthouse)</option>
+                  <option value="Chalet" data-i18n="opt_chalet">شاليه ساحلي (Chalet)</option>
                 </select>
               </div>
 
               <div class="form-group">
                 <label class="form-label" for="select-city">
-                  <i class="fa-solid fa-map-location-dot"></i> المدينة / المنطقة
+                  <i class="fa-solid fa-map-location-dot"></i> <span data-i18n="label_city">المدينة / المنطقة</span>
                 </label>
                 <select id="select-city" class="gold-select" onchange="updateCompoundsForCity()">
                   <option value="New Cairo City" selected>القاهرة الجديدة / التجمع الخامس</option>
@@ -198,43 +215,47 @@
               </div>
             </div>
 
+            <!-- STEP 3: COMPOUND & PAYMENT METHOD -->
             <div class="form-row-2">
               <div class="form-group">
                 <label class="form-label" for="select-compound">
-                  <i class="fa-solid fa-landmark"></i> الكومباوند / المشروع
+                  <i class="fa-solid fa-landmark"></i> <span data-i18n="label_compound">الكومباوند / المشروع</span>
                 </label>
-                <select id="select-compound" class="gold-select">
+                <select id="select-compound" class="gold-select" onchange="calculatePrice()">
                   <option value="Mivida" selected>Mivida (ميفيدا)</option>
                   <option value="Allegria">Allegria (أليجريا)</option>
                   <option value="Hyde Park">Hyde Park (هايد بارك)</option>
                   <option value="Madinaty">Madinaty (مدينتي)</option>
-                  <option value="Palm Hills">Badya Palm Hills</option>
+                  <option value="Badya Palm Hills">Badya Palm Hills</option>
                   <option value="Mountain View">Mountain View</option>
-                  <option value="Marassi">Marassi (مراسي الساحل)</option>
+                  <option value="Marassi">Marassi (مراسي)</option>
                   <option value="Hacienda Bay">Hacienda Bay</option>
                   <option value="Swan Lake">Swan Lake</option>
-                  <option value="Azha">Azha (أزها)</option>
-                  <option value="District 5">District 5</option>
-                  <option value="Eastown">Eastown Sodic</option>
-                  <option value="Other">خارج كومباوند / منطقة عامة (Other)</option>
+                  <option value="Other">خارج كومباوند / منطقة سكنية عامة</option>
                 </select>
               </div>
 
               <div class="form-group">
                 <label class="form-label" for="select-payment">
-                  <i class="fa-solid fa-credit-card"></i> طريقة السداد
+                  <i class="fa-solid fa-credit-card"></i> <span data-i18n="label_payment">نظام الدفع المفضل</span>
                 </label>
-                <select id="select-payment" class="gold-select">
-                  <option value="Cash" selected>كاش فوري (Cash)</option>
-                  <option value="Installments">أقساط وتسهيلات (Installments)</option>
-                </select>
+                <div class="payment-toggle-wrapper">
+                  <button type="button" class="btn-payment-type active" id="btn-pay-cash" onclick="setPaymentMode('Cash')">
+                    <i class="fa-solid fa-money-bill-wave"></i>
+                    <span data-i18n="pay_cash">كاش فوري</span>
+                  </button>
+                  <button type="button" class="btn-payment-type" id="btn-pay-installments" onclick="setPaymentMode('Installments')">
+                    <i class="fa-solid fa-calendar-check"></i>
+                    <span data-i18n="pay_installments">تقسيط مريح ⚡</span>
+                  </button>
+                </div>
               </div>
             </div>
 
-            <!-- Rooms Counters -->
+            <!-- STEP 4: ROOMS COUNTERS -->
             <div class="form-row-2">
               <div class="form-group">
-                <label class="form-label"><i class="fa-solid fa-bed"></i> عدد غرف النوم</label>
+                <label class="form-label"><i class="fa-solid fa-bed"></i> <span data-i18n="label_beds">عدد غرف النوم</span></label>
                 <div class="counter-box">
                   <button type="button" class="counter-btn" onclick="adjustCount('bedrooms', -1)"><i class="fa-solid fa-minus"></i></button>
                   <span class="counter-value" id="bedrooms-val">3</span>
@@ -243,7 +264,7 @@
               </div>
 
               <div class="form-group">
-                <label class="form-label"><i class="fa-solid fa-bath"></i> عدد الحمامات</label>
+                <label class="form-label"><i class="fa-solid fa-bath"></i> <span data-i18n="label_baths">عدد الحمامات</span></label>
                 <div class="counter-box">
                   <button type="button" class="counter-btn" onclick="adjustCount('bathrooms', -1)"><i class="fa-solid fa-minus"></i></button>
                   <span class="counter-value" id="bathrooms-val">2</span>
@@ -252,87 +273,80 @@
               </div>
             </div>
 
-            <!-- 3. LUXURY AMENITIES (User Requirement: Sea View, Roof, Pool, etc.) -->
+            <!-- STEP 5: LUXURY AMENITIES (User Requirement: Sea view, roof, pool, etc.) -->
             <div class="form-group">
               <label class="form-label">
-                <span class="gold-text"><i class="fa-solid fa-crown"></i> الإطلالات والمميزات الفاخرة (Luxury Amenities):</span>
-                <span class="label-hint">اضغط لتفعيل الميزة وشاهد أثرها الفوري على التقييم</span>
+                <span class="gold-text"><i class="fa-solid fa-crown"></i> <span data-i18n="amenities_title">المميزات والإطلالات الإضافية:</span></span>
+                <span class="label-hint" data-i18n="amenities_hint">انقر للتفعيل ومشاهدة الأثر المالي</span>
               </label>
 
               <div class="amenities-toggle-grid">
                 <!-- Sea View -->
                 <div class="amenity-card" id="card-sea-view" onclick="toggleAmenity('sea_view')">
-                  <input type="checkbox" id="check-sea-view" hidden>
                   <div class="amenity-icon"><i class="fa-solid fa-water"></i></div>
                   <div class="amenity-info">
-                    <div class="amenity-name">إطلالة بحرية / بحيرة</div>
-                    <div class="amenity-premium">+28% علاوة سوقية</div>
+                    <div class="amenity-name" data-i18n="am_sea_view">إطلالة على البحر / بحيرة</div>
+                    <div class="amenity-premium">+28% <span data-i18n="premium_val">قيمة سوقية إضافية</span></div>
                   </div>
                   <div class="check-indicator"><i class="fa-solid fa-check"></i></div>
                 </div>
 
                 <!-- Private Roof -->
                 <div class="amenity-card" id="card-roof" onclick="toggleAmenity('roof')">
-                  <input type="checkbox" id="check-roof" hidden>
                   <div class="amenity-icon"><i class="fa-solid fa-umbrella-beach"></i></div>
                   <div class="amenity-info">
-                    <div class="amenity-name">روف خاص (Private Roof)</div>
-                    <div class="amenity-premium">+7% مساحة خارجية</div>
+                    <div class="amenity-name" data-i18n="am_roof">روف خاص (Private Roof)</div>
+                    <div class="amenity-premium">+7% <span data-i18n="premium_val">مساحة خارجية مميزة</span></div>
                   </div>
                   <div class="check-indicator"><i class="fa-solid fa-check"></i></div>
                 </div>
 
                 <!-- Private Pool -->
                 <div class="amenity-card" id="card-pool" onclick="toggleAmenity('pool')">
-                  <input type="checkbox" id="check-pool" hidden>
                   <div class="amenity-icon"><i class="fa-solid fa-person-swimming"></i></div>
                   <div class="amenity-info">
-                    <div class="amenity-name">حمام سباحة خاص</div>
-                    <div class="amenity-premium">+24% قيمة ترفيهية</div>
+                    <div class="amenity-name" data-i18n="am_pool">حمام سباحة خاص</div>
+                    <div class="amenity-premium">+24% <span data-i18n="premium_val">رفاهية واستجمام</span></div>
                   </div>
                   <div class="check-indicator"><i class="fa-solid fa-check"></i></div>
                 </div>
 
                 <!-- Private Garden -->
                 <div class="amenity-card" id="card-garden" onclick="toggleAmenity('garden')">
-                  <input type="checkbox" id="check-garden" hidden>
                   <div class="amenity-icon"><i class="fa-solid fa-tree"></i></div>
                   <div class="amenity-info">
-                    <div class="amenity-name">حديقة خاصة (Private Garden)</div>
-                    <div class="amenity-premium">+18% مساحة خضراء</div>
+                    <div class="amenity-name" data-i18n="am_garden">حديقة خاصة (Private Garden)</div>
+                    <div class="amenity-premium">+18% <span data-i18n="premium_val">مساحة خضراء</span></div>
                   </div>
                   <div class="check-indicator"><i class="fa-solid fa-check"></i></div>
                 </div>
 
                 <!-- Fully Finished -->
                 <div class="amenity-card active" id="card-finished" onclick="toggleAmenity('finished')">
-                  <input type="checkbox" id="check-finished" checked hidden>
                   <div class="amenity-icon"><i class="fa-solid fa-paint-roller"></i></div>
                   <div class="amenity-info">
-                    <div class="amenity-name">تشطيب سوبر لوكس</div>
-                    <div class="amenity-premium">+15% جاهز للسكن</div>
+                    <div class="amenity-name" data-i18n="am_finished">تشطيب ألترا سوبر لوكس</div>
+                    <div class="amenity-premium">+15% <span data-i18n="premium_val">جاهز للسكن الفوري</span></div>
                   </div>
                   <div class="check-indicator"><i class="fa-solid fa-check"></i></div>
                 </div>
 
                 <!-- Furnished -->
                 <div class="amenity-card" id="card-furnished" onclick="toggleAmenity('furnished')">
-                  <input type="checkbox" id="check-furnished" hidden>
                   <div class="amenity-icon"><i class="fa-solid fa-couch"></i></div>
                   <div class="amenity-info">
-                    <div class="amenity-name">مفروش بالكامل (Furnished)</div>
-                    <div class="amenity-premium">+12% أثاث وأجهزة</div>
+                    <div class="amenity-name" data-i18n="am_furnished">مفروش بالكامل بأرقى أثاث</div>
+                    <div class="amenity-premium">+12% <span data-i18n="premium_val">أثاث وتجهيزات كاملة</span></div>
                   </div>
                   <div class="check-indicator"><i class="fa-solid fa-check"></i></div>
                 </div>
 
                 <!-- Maid Room -->
                 <div class="amenity-card" id="card-maid" onclick="toggleAmenity('maid')">
-                  <input type="checkbox" id="check-maid" hidden>
                   <div class="amenity-icon"><i class="fa-solid fa-user-tie"></i></div>
                   <div class="amenity-info">
-                    <div class="amenity-name">غرفة خادمة خاصة</div>
-                    <div class="amenity-premium">+9% راحة وخصوصية</div>
+                    <div class="amenity-name" data-i18n="am_maid">غرفة خادمة خاصة بالحمام</div>
+                    <div class="amenity-premium">+9% <span data-i18n="premium_val">خصوصية عائلية</span></div>
                   </div>
                   <div class="check-indicator"><i class="fa-solid fa-check"></i></div>
                 </div>
@@ -342,186 +356,147 @@
             <!-- Submit Button -->
             <button type="submit" class="btn-calculate-gold" id="btn-submit">
               <span class="btn-icon"><i class="fa-solid fa-sparkles"></i></span>
-              <span class="btn-text">احسب السعر بالذكاء الاصطناعي الآن</span>
+              <span class="btn-text" data-i18n="btn_calculate">إعادة تقييم العقار الآن</span>
               <span class="btn-spinner" id="btn-spinner" style="display:none;"><i class="fa-solid fa-spinner fa-spin"></i></span>
             </button>
           </form>
         </div>
 
-        <!-- RIGHT: PREDICTION RESULTS DISPLAY -->
+        <!-- RIGHT: RESULTS & INSTALLMENT BREAKDOWN -->
         <div class="results-column">
-          <!-- Main Gold Price Card -->
+
+          <!-- MAIN VALUATION CARD -->
           <div class="card-luxury result-display-card" id="result-card">
             <div class="valuation-badge">
-              <i class="fa-solid fa-shield-halved"></i>
-              <span>التقييم المالي العادل (Fair Market Valuation)</span>
+              <i class="fa-solid fa-shield-check gold-accent"></i>
+              <span data-i18n="val_badge">التقييم العقاري الذكي المعتمد</span>
             </div>
 
             <div class="result-price-box">
               <div class="price-headline">
-                <span class="currency-symbol">EGP</span>
+                <span class="currency-symbol" data-i18n="currency">EGP</span>
                 <span class="animated-price" id="main-price-val">9,850,000</span>
               </div>
               <div class="price-in-millions-pill" id="millions-pill">
-                <i class="fa-solid fa-coins"></i> حوالي <strong>9.85 مليون جنيه مصري</strong>
+                <i class="fa-solid fa-coins"></i> <span data-i18n="approx">حوالي</span> <strong>9.85 <span data-i18n="million_egp">مليون جنيه مصري</span></strong>
               </div>
             </div>
 
-            <!-- Stats Ribbon -->
+            <!-- Clean Value Indicators (No raw ML errors) -->
             <div class="valuation-metrics-grid">
               <div class="metric-cell">
-                <span class="cell-label">متوسط سعر المتر</span>
+                <span class="cell-label" data-i18n="lbl_meter_price">سعر المتر المربع</span>
                 <span class="cell-value gold-text" id="sqm-price-val">61,560 EGP/م²</span>
               </div>
               <div class="metric-cell">
-                <span class="cell-label">نطاق السعر المقترح</span>
+                <span class="cell-label" data-i18n="lbl_price_range">النطاق السعري العادل</span>
                 <span class="cell-value" id="range-val">8.4M - 11.3M EGP</span>
               </div>
               <div class="metric-cell">
-                <span class="cell-label">مؤشر موثوقية النموذج</span>
-                <span class="cell-value green-text" id="confidence-val">61.2% (R² Benchmark)</span>
+                <span class="cell-label" data-i18n="lbl_confidence">درجة موثوقية التقييم</span>
+                <span class="cell-value green-text" id="confidence-val"><i class="fa-solid fa-badge-check"></i> <span data-i18n="conf_high">فائقة الدقة</span></span>
               </div>
             </div>
 
-            <!-- Active Amenities Mini List -->
+            <!-- Active Amenities Mini Badges -->
             <div class="active-features-summary">
-              <h4 class="features-summary-title">المميزات والعلاوات المحتسبة في هذا التقييم:</h4>
+              <h4 class="features-summary-title" data-i18n="active_amenities_title">المميزات المحتسبة في هذا التقييم:</h4>
               <div class="features-tags-list" id="features-tags">
-                <span class="feat-tag active"><i class="fa-solid fa-check"></i> تشطيب كامل سوبر لوكس (+15%)</span>
+                <span class="feat-tag active"><i class="fa-solid fa-check"></i> تشطيب ألترا سوبر لوكس (+15%)</span>
               </div>
             </div>
 
-            <!-- Valuation Details Breakdown -->
+            <!-- Valuation Specs Footer -->
             <div class="valuation-specs-footer">
               <div class="specs-item"><i class="fa-solid fa-building"></i> <span id="summary-type">شقة سكنية</span></div>
               <div class="specs-item"><i class="fa-solid fa-maximize"></i> <span id="summary-area">160 م²</span></div>
               <div class="specs-item"><i class="fa-solid fa-location-dot"></i> <span id="summary-location">القاهرة الجديدة</span></div>
-              <div class="specs-item"><i class="fa-solid fa-cube"></i> <span id="summary-model">LightGBM Production</span></div>
             </div>
           </div>
 
-          <!-- Academic Presentation Highlight for Doctor -->
-          <div class="card-luxury doctor-highlight-card">
-            <div class="doc-badge"><i class="fa-solid fa-user-graduate"></i> ملاحظة للدكتور والمناقشة الأكاديمية</div>
-            <p class="doc-text">
-              تم بناء التقييم بناءً على خوارزمية <strong>LightGBM Regressor</strong> مدربة مع تقنية <strong>Target Log Transformation</strong> لتفادي انحراف التوزيع التكراري للأسعار وحل مشكلة القيم المفقودة عبر <strong>ColumnTransformer Pipeline</strong>.
-            </p>
-            <div class="doc-actions">
-              <button class="btn-doc-link" onclick="switchTab('tab-models')">
-                <i class="fa-solid fa-chart-pie"></i> عرض مصفوفة تقييم النماذج الأربعة
-              </button>
+          <!-- INSTALLMENT SIMULATOR CARD (Crucial User Requirement: كام وازاي لو تقسيط) -->
+          <div class="card-luxury installment-card" id="installment-section">
+            <div class="inst-header">
+              <div class="inst-title-box">
+                <div class="inst-icon"><i class="fa-solid fa-calculator"></i></div>
+                <div>
+                  <h3 class="inst-title" data-i18n="inst_title">حاسبة خطة التقسيط الميسرة</h3>
+                  <p class="inst-subtitle" data-i18n="inst_subtitle">احسب القسط الشهري والربع سنوي والمقدم بدقة</p>
+                </div>
+              </div>
+              <div class="inst-badge" id="inst-mode-tag" data-i18n="inst_active">خطة دفع نشطة</div>
+            </div>
+
+            <!-- Down Payment Selector -->
+            <div class="inst-control-group">
+              <label class="inst-label">
+                <span data-i18n="lbl_downpayment">نسبة المقدم (Down Payment):</span>
+                <span class="inst-highlight" id="dp-amount-display">985,000 EGP (10%)</span>
+              </label>
+              <div class="inst-pills-row" id="dp-pills">
+                <button type="button" class="inst-pill active" onclick="setDownPaymentPct(10)">10%</button>
+                <button type="button" class="inst-pill" onclick="setDownPaymentPct(15)">15%</button>
+                <button type="button" class="inst-pill" onclick="setDownPaymentPct(20)">20%</button>
+                <button type="button" class="inst-pill" onclick="setDownPaymentPct(25)">25%</button>
+                <button type="button" class="inst-pill" onclick="setDownPaymentPct(30)">30%</button>
+              </div>
+            </div>
+
+            <!-- Installment Years Selector -->
+            <div class="inst-control-group">
+              <label class="inst-label">
+                <span data-i18n="lbl_years">مدة التقسيط (سنين):</span>
+                <span class="inst-highlight" id="years-display">7 <span data-i18n="years">سنوات</span> (84 <span data-i18n="months">شهر</span>)</span>
+              </label>
+              <div class="inst-pills-row" id="years-pills">
+                <button type="button" class="inst-pill" onclick="setInstallmentYears(3)">3 <span data-i18n="yrs">سنوات</span></button>
+                <button type="button" class="inst-pill" onclick="setInstallmentYears(5)">5 <span data-i18n="yrs">سنوات</span></button>
+                <button type="button" class="inst-pill active" onclick="setInstallmentYears(7)">7 <span data-i18n="yrs">سنوات</span></button>
+                <button type="button" class="inst-pill" onclick="setInstallmentYears(8)">8 <span data-i18n="yrs">سنوات</span></button>
+                <button type="button" class="inst-pill" onclick="setInstallmentYears(10)">10 <span data-i18n="yrs">سنوات</span></button>
+              </div>
+            </div>
+
+            <!-- Installment Results Matrix -->
+            <div class="inst-results-matrix">
+              <!-- Monthly Installment -->
+              <div class="inst-cell primary-cell">
+                <span class="inst-cell-label" data-i18n="lbl_monthly_inst">القسط الشهري التقريبي</span>
+                <span class="inst-cell-val gold-gradient-text" id="inst-monthly-val">105,500 EGP</span>
+                <span class="inst-cell-sub" data-i18n="lbl_per_month">يدفع كل شهر</span>
+              </div>
+
+              <!-- Quarterly Installment -->
+              <div class="inst-cell">
+                <span class="inst-cell-label" data-i18n="lbl_quarterly_inst">القسط الربع سنوي</span>
+                <span class="inst-cell-val" id="inst-quarterly-val">316,600 EGP</span>
+                <span class="inst-cell-sub" data-i18n="lbl_per_quarter">كل 3 أشهر</span>
+              </div>
+
+              <!-- Remaining Total -->
+              <div class="inst-cell">
+                <span class="inst-cell-label" data-i18n="lbl_remaining_amount">إجمالي المبلغ المتبقي</span>
+                <span class="inst-cell-val" id="inst-remaining-val">8.86M EGP</span>
+                <span class="inst-cell-sub" data-i18n="lbl_after_dp">بعد خصم المقدم</span>
+              </div>
             </div>
           </div>
+
         </div>
       </div>
     </section>
 
     <!-- ============================================== -->
-    <!-- TAB 2: MODEL COMPARISON                        -->
-    <!-- ============================================== -->
-    <section id="tab-models" class="app-tab">
-      <div class="hero-section">
-        <div class="hero-badge"><i class="fa-solid fa-scale-balanced"></i> مقارنة النماذج الأربعة</div>
-        <h1 class="hero-heading">
-          مقارنة الأداء بين <span class="gold-gradient-text">خوارزميات الـ Machine Learning</span>
-        </h1>
-        <p class="hero-desc">
-          تم تدريب ومقارنة 4 خوارزميات قياسية عبر Cross-Validation و Test Split (80/20) لتحديد النموذج الأفضل لتقدير أسعار العقارات.
-        </p>
-      </div>
-
-      <!-- Comparison Metrics Cards -->
-      <div class="models-cards-grid">
-        <!-- Model 1: LightGBM (Winner) -->
-        <div class="model-stat-card winner-card">
-          <div class="winner-crown"><i class="fa-solid fa-crown"></i> الفائز بالمركز الأول</div>
-          <h3 class="model-stat-name">LightGBM Regressor</h3>
-          <div class="model-stat-score">
-            <span class="score-number">0.6124</span>
-            <span class="score-label">R² Score (دقة النموذج)</span>
-          </div>
-          <div class="model-metrics-row">
-            <div><strong>MAE:</strong> 2,777,060 EGP</div>
-            <div><strong>Speed:</strong> فائق السرعة ⚡</div>
-          </div>
-          <p class="model-card-desc">تفوق في التعامل مع الفئات النصية وتعدد المتغيرات (Tree-based Leaf-wise splits).</p>
-        </div>
-
-        <!-- Model 2: Random Forest -->
-        <div class="model-stat-card">
-          <div class="rank-badge">المركز الثاني 🥈</div>
-          <h3 class="model-stat-name">Random Forest Regressor</h3>
-          <div class="model-stat-score">
-            <span class="score-number">0.6075</span>
-            <span class="score-label">R² Score</span>
-          </div>
-          <div class="model-metrics-row">
-            <div><strong>MAE:</strong> 2,855,339 EGP</div>
-            <div><strong>Trees:</strong> 100 Estimators</div>
-          </div>
-          <p class="model-card-desc">قوي جداً في العلاقات غير الخطية لكنه أثقل في حجم الذاكرة وسرعة الـ Inference.</p>
-        </div>
-
-        <!-- Model 3: XGBoost -->
-        <div class="model-stat-card">
-          <div class="rank-badge">المركز الثالث 🥉</div>
-          <h3 class="model-stat-name">XGBoost Regressor</h3>
-          <div class="model-stat-score">
-            <span class="score-number">0.5764</span>
-            <span class="score-label">R² Score</span>
-          </div>
-          <div class="model-metrics-row">
-            <div><strong>MAE:</strong> 2,917,614 EGP</div>
-            <div><strong>Depth:</strong> 6 Levels</div>
-          </div>
-          <p class="model-card-desc">ممتاز لكنه حساس للـ Hyperparameters والـ Outliers الشديدة في أسعار العقارات.</p>
-        </div>
-
-        <!-- Model 4: Linear Regression -->
-        <div class="model-stat-card">
-          <div class="rank-badge">النموذج المرجعي (Baseline)</div>
-          <h3 class="model-stat-name">Linear Regression</h3>
-          <div class="model-stat-score">
-            <span class="score-number">0.5059</span>
-            <span class="score-label">R² Score</span>
-          </div>
-          <div class="model-metrics-row">
-            <div><strong>MAE:</strong> 3,175,726 EGP</div>
-            <div><strong>Complexity:</strong> خطي بسيط</div>
-          </div>
-          <p class="model-card-desc">يوفر فكرة أساسية عن العلاقة الخطية بين المساحة والسعر، مع افتراض استقلالية الميزات.</p>
-        </div>
-      </div>
-
-      <!-- Comparison Charts -->
-      <div class="charts-2col-grid">
-        <div class="card-luxury">
-          <h3 class="chart-box-title"><i class="fa-solid fa-chart-simple gold-text"></i> مقارنة معامل التحديد (R² Score - الأعلى أفضل)</h3>
-          <div class="chart-container">
-            <canvas id="r2ComparisonChart"></canvas>
-          </div>
-        </div>
-
-        <div class="card-luxury">
-          <h3 class="chart-box-title"><i class="fa-solid fa-arrow-down-short-wide gold-text"></i> متوسط الخطأ المطلق (MAE بالمليون جنيه - الأقل أفضل)</h3>
-          <div class="chart-container">
-            <canvas id="maeComparisonChart"></canvas>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- ============================================== -->
-    <!-- TAB 3: MARKET INTELLIGENCE                     -->
+    <!-- TAB 2: MARKET ANALYTICS                        -->
     <!-- ============================================== -->
     <section id="tab-market" class="app-tab">
       <div class="hero-section">
-        <div class="hero-badge"><i class="fa-solid fa-chart-pie"></i> استكشاف البيانات (EDA Insights)</div>
+        <div class="hero-badge"><i class="fa-solid fa-chart-pie"></i> <span data-i18n="market_badge">مؤشرات السوق العقاري المصري</span></div>
         <h1 class="hero-heading">
-          مؤشرات السوق العقاري <span class="gold-gradient-text">في محافظات مصر</span>
+          <span data-i18n="market_heading_1">خريطة الأسعار والمناطق</span> <span class="gold-gradient-text" data-i18n="market_heading_2">في مصر</span>
         </h1>
-        <p class="hero-desc">
-          إحصائيات حية مستخلصة من 14,279 إعلان عقاري بعد التنظيف المتقدم وإزالة القيم الشاذة.
+        <p class="hero-desc" data-i18n="market_desc">
+          بيانات دقيقة مستخلصة من أكثر من 14,000 إعلان حقيقي لمساعدتك في اتخاذ أفضل قرار شراء أو استثمار.
         </p>
       </div>
 
@@ -530,44 +505,44 @@
         <div class="kpi-card">
           <div class="kpi-icon"><i class="fa-solid fa-database"></i></div>
           <div class="kpi-data">
-            <div class="kpi-val" id="kpi-total-listings">14,279</div>
-            <div class="kpi-title">عقار بعد التنظيف</div>
+            <div class="kpi-val">14,279</div>
+            <div class="kpi-title" data-i18n="kpi_1">عقار مدروس بعد التنظيف</div>
           </div>
         </div>
         <div class="kpi-card">
           <div class="kpi-icon"><i class="fa-solid fa-sack-dollar"></i></div>
           <div class="kpi-data">
-            <div class="kpi-val" id="kpi-median-price">8.40M EGP</div>
-            <div class="kpi-title">السعر الوسيط للعقارات</div>
+            <div class="kpi-val">8.40M EGP</div>
+            <div class="kpi-title" data-i18n="kpi_2">السعر الوسيط للعقارات</div>
           </div>
         </div>
         <div class="kpi-card">
           <div class="kpi-icon"><i class="fa-solid fa-ruler-combined"></i></div>
           <div class="kpi-data">
             <div class="kpi-val">160 م²</div>
-            <div class="kpi-title">المساحة الوسيطة</div>
+            <div class="kpi-title" data-i18n="kpi_3">المساحة الوسيطة الأكثر طلباً</div>
           </div>
         </div>
         <div class="kpi-card">
           <div class="kpi-icon"><i class="fa-solid fa-map-pin"></i></div>
           <div class="kpi-data">
-            <div class="kpi-val">67 مدينة</div>
-            <div class="kpi-title">تغطية جغرافية شاملة</div>
+            <div class="kpi-val">67 <span data-i18n="city">مدينة</span></div>
+            <div class="kpi-title" data-i18n="kpi_4">تغطية تشمل كافة المحافظات</div>
           </div>
         </div>
       </div>
 
-      <!-- Market Charts -->
+      <!-- Charts 2 Columns -->
       <div class="charts-2col-grid">
         <div class="card-luxury">
-          <h3 class="chart-box-title"><i class="fa-solid fa-ranking-star gold-text"></i> أعلى المدن في مصر بالأسعار الوسيطة (مليون جنيه)</h3>
+          <h3 class="chart-box-title"><i class="fa-solid fa-ranking-star gold-text"></i> <span data-i18n="chart_cities_title">أعلى المناطق في مصر بالأسعار الوسيطة (مليون جنيه)</span></h3>
           <div class="chart-container">
             <canvas id="cityPricesChart"></canvas>
           </div>
         </div>
 
         <div class="card-luxury">
-          <h3 class="chart-box-title"><i class="fa-solid fa-crown gold-text"></i> نسبة العلاوة السعرية لكل ميزة فاخرة (Amenity Premium %)</h3>
+          <h3 class="chart-box-title"><i class="fa-solid fa-crown gold-text"></i> <span data-i18n="chart_amenities_title">نسبة القيمة الإضافية لكل ميزة فاخرة (علاوة السعر)</span></h3>
           <div class="chart-container">
             <canvas id="amenityPremiumChart"></canvas>
           </div>
@@ -576,65 +551,95 @@
     </section>
 
     <!-- ============================================== -->
-    <!-- TAB 4: METHODOLOGY & PRESENTATION              -->
+    <!-- TAB 3: MODEL COMPARISON (Academic Reference)   -->
     <!-- ============================================== -->
-    <section id="tab-methodology" class="app-tab">
+    <section id="tab-models" class="app-tab">
       <div class="hero-section">
-        <div class="hero-badge"><i class="fa-solid fa-book-bookmark"></i> الدليل الأكاديمي والتقني</div>
+        <div class="hero-badge"><i class="fa-solid fa-scale-balanced"></i> <span data-i18n="models_badge">المناقشة الأكاديمية ونماذج التعلم الآلي</span></div>
         <h1 class="hero-heading">
-          منهجية المشروع من <span class="gold-gradient-text">البيانات الخام إلى الـ Full-Stack</span>
+          <span data-i18n="models_heading_1">مقارنة الخوارزميات الـ 4</span> <span class="gold-gradient-text" data-i18n="models_heading_2">(Machine Learning Benchmark)</span>
         </h1>
-        <p class="hero-desc">
-          الملخص التنفيذي لكل خطوة برمجية وهندسية تم تطبيقها في المشروع، مثالي لعرضه على الدكتور في المناقشة.
+        <p class="hero-desc" data-i18n="models_desc">
+          توثيق معايير اختيار الموديل الفائز لمناقشة الدكتور واللجنة الأكاديمية.
         </p>
       </div>
 
-      <div class="methodology-cards-list">
-        <!-- Step 1 -->
-        <div class="card-luxury step-card">
-          <div class="step-num">01</div>
-          <div class="step-body">
-            <h3 class="step-title">فحص وفهم البيانات الخام (Data Understanding)</h3>
-            <p class="step-desc">
-              بدأنا بملف <code>egypt_real_estate_listings.csv</code> (24 ميجابايت، أكثر من 20,000 صف). قمنا بفحص الأعمدة المفقودة، واكتشفنا أن الأسعار والمساحات كانت مخزنة كنصوص تحتوي على فواصل وكلمات، والموقع كان نصاً طويلاً مجمعاً.
-            </p>
+      <!-- Comparison Metrics Cards -->
+      <div class="models-cards-grid">
+        <!-- Model 1: LightGBM (Winner) -->
+        <div class="model-stat-card winner-card">
+          <div class="winner-crown"><i class="fa-solid fa-crown"></i> <span data-i18n="winner_title">النموذج الفائز والمعتمد بالمشروع</span></div>
+          <h3 class="model-stat-name">LightGBM Regressor</h3>
+          <div class="model-stat-score">
+            <span class="score-number">0.6124</span>
+            <span class="score-label" data-i18n="lbl_r2_score">معامل التحديد (R² Score)</span>
+          </div>
+          <div class="model-metrics-row">
+            <div><strong>MAE:</strong> 2.77M EGP</div>
+            <div><strong>Speed:</strong> <span data-i18n="speed_fast">فائق السرعة</span> ⚡</div>
+          </div>
+          <p class="model-card-desc" data-i18n="desc_lgbm">تفوق في التعامل مع الفئات النصية واستخراج العلاقات غير الخطية بين الموقع والمساحة.</p>
+        </div>
+
+        <!-- Model 2: Random Forest -->
+        <div class="model-stat-card">
+          <div class="rank-badge" data-i18n="rank_2">المركز الثاني 🥈</div>
+          <h3 class="model-stat-name">Random Forest Regressor</h3>
+          <div class="model-stat-score">
+            <span class="score-number">0.6075</span>
+            <span class="score-label">R² Score</span>
+          </div>
+          <div class="model-metrics-row">
+            <div><strong>MAE:</strong> 2.85M EGP</div>
+            <div><strong>Trees:</strong> 100 Trees</div>
+          </div>
+          <p class="model-card-desc" data-i18n="desc_rf">قوي جداً في العلاقات المتداخلة، لكنه أثقل في حجم الذاكرة وتصدير الموديل.</p>
+        </div>
+
+        <!-- Model 3: XGBoost -->
+        <div class="model-stat-card">
+          <div class="rank-badge" data-i18n="rank_3">المركز الثالث 🥉</div>
+          <h3 class="model-stat-name">XGBoost Regressor</h3>
+          <div class="model-stat-score">
+            <span class="score-number">0.5764</span>
+            <span class="score-label">R² Score</span>
+          </div>
+          <div class="model-metrics-row">
+            <div><strong>MAE:</strong> 2.92M EGP</div>
+            <div><strong>Depth:</strong> 6 Levels</div>
+          </div>
+          <p class="model-card-desc" data-i18n="desc_xgb">ممتاز في البيانات الجداولية، وتطلب معالجة إضافية لتفادي أثر القيم الشاذة القصوى.</p>
+        </div>
+
+        <!-- Model 4: Linear Regression -->
+        <div class="model-stat-card">
+          <div class="rank-badge" data-i18n="rank_baseline">النموذج المرجعي (Baseline)</div>
+          <h3 class="model-stat-name">Linear Regression</h3>
+          <div class="model-stat-score">
+            <span class="score-number">0.5059</span>
+            <span class="score-label">R² Score</span>
+          </div>
+          <div class="model-metrics-row">
+            <div><strong>MAE:</strong> 3.18M EGP</div>
+            <div><strong>Type:</strong> <span data-i18n="linear_simple">خطي بسيط</span></div>
+          </div>
+          <p class="model-card-desc" data-i18n="desc_lr">أعطى الأساس المرجعي للعلاقة الخطية المباشرة بين عدد الأمتار والسعر.</p>
+        </div>
+      </div>
+
+      <!-- Comparison Charts -->
+      <div class="charts-2col-grid">
+        <div class="card-luxury">
+          <h3 class="chart-box-title"><i class="fa-solid fa-chart-simple gold-text"></i> <span data-i18n="chart_r2_title">مقارنة معامل التحديد (R² Score - الأعلى أفضل)</span></h3>
+          <div class="chart-container">
+            <canvas id="r2ComparisonChart"></canvas>
           </div>
         </div>
 
-        <!-- Step 2 -->
-        <div class="card-luxury step-card">
-          <div class="step-num">02</div>
-          <div class="step-body">
-            <h3 class="step-title">تنظيف البيانات المبرر (Justified Data Cleaning & Feature Extraction)</h3>
-            <ul class="methodology-bullets">
-              <li><strong>تحويل الأسعار:</strong> إزالة الفواصل والرموز وحذف القيم الشاذة (&lt; 200,000 أو &gt; 150,000,000 جنيه).</li>
-              <li><strong>تفكيك الموقع:</strong> استخراج الكومباوند (Compound)، والمدينة (City)، والمحافظة (Governorate).</li>
-              <li><strong>التنقيب عن المميزات (Text Mining):</strong> استخراج الفيو البحري، حمام السباحة، الحديقة، والفرش من نصوص الوصف عبر Regular Expressions.</li>
-              <li><strong>معالجة القيم المتطرفة:</strong> استبعاد العقارات ذات المساحات غير المنطقية (&lt; 25 م² أو &gt; 2,500 م²).</li>
-            </ul>
-          </div>
-        </div>
-
-        <!-- Step 3 -->
-        <div class="card-luxury step-card">
-          <div class="step-num">03</div>
-          <div class="step-body">
-            <h3 class="step-title">هندسة خط الأنابيب (Scikit-Learn ColumnTransformer Pipeline)</h3>
-            <p class="step-desc">
-              تم بناء Pipeline موحد يضمن عدم حدوث Data Leakage:
-              استخدام <code>SimpleImputer(strategy='median')</code> و <code>StandardScaler</code> للمتغيرات الرقمية، و <code>OneHotEncoder(handle_unknown='ignore')</code> للمتغيرات النصية، مع تغليف الموديل داخل <code>TransformedTargetRegressor(func=np.log1p)</code> لضمان استقرار توزيع الأسعار اللوغاريتمي وتجنب التنبؤ بقيم سالبة.
-            </p>
-          </div>
-        </div>
-
-        <!-- Step 4 -->
-        <div class="card-luxury step-card">
-          <div class="step-num">04</div>
-          <div class="step-body">
-            <h3 class="step-title">بناء الـ Full-Stack وتجهيز النشر السحابي</h3>
-            <p class="step-desc">
-              تصدير الموديل الفائز إلى <code>best_model.pkl</code>، وتشييد سيرفر <strong>FastAPI</strong> احترافي مع Endpoints موثقة بالكامل بـ <strong>Swagger UI</strong>، وتطوير واجهة مستخدم تفاعلية (HTML5 / Vanilla CSS3 / JavaScript / Chart.js) بنمط <strong>Black & Gold</strong> الفاخر.
-            </p>
+        <div class="card-luxury">
+          <h3 class="chart-box-title"><i class="fa-solid fa-arrow-down-short-wide gold-text"></i> <span data-i18n="chart_mae_title">متوسط الخطأ المطلق (MAE بالمليون جنيه - الأقل أفضل)</span></h3>
+          <div class="chart-container">
+            <canvas id="maeComparisonChart"></canvas>
           </div>
         </div>
       </div>
@@ -646,10 +651,11 @@
   <footer class="luxury-footer">
     <div class="container footer-content">
       <div class="footer-brand">
-        <span class="gold-accent"><i class="fa-solid fa-gem"></i> GOLDENESTATE AI</span> — Egyptian Real Estate Price Prediction
+        <span class="gold-accent"><i class="fa-solid fa-hotel"></i> عقاري — AQARI AI</span>
+        <span class="footer-copy">| Egyptian Real Estate Valuation Platform</span>
       </div>
-      <div class="footer-meta">
-        Machine Learning Full-Stack Project | Deployed with FastAPI ⚡
+      <div class="footer-meta" data-i18n="footer_meta">
+        مشروع متكامل (Full-Stack Machine Learning) مدعوم بـ FastAPI ⚡
       </div>
     </div>
   </footer>
